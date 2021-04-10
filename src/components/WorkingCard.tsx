@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Flex, Heading, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import { Divider, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 
 export type WorkingCardProps = {
   name: string;

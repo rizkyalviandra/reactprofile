@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/globals.css'
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { Center, ChakraProvider, Spinner } from "@chakra-ui/react"

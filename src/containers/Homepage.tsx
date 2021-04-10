@@ -1,18 +1,16 @@
 import React from 'react'
 import Head from 'next/head'
-import { Box, Divider, Grid, Heading, HStack, Link, Stack, Text } from '@chakra-ui/layout'
+import { Box, Divider, Grid, Heading, Link, Stack, Text } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/image'
 import SectionContainer from '../components/SectionContainer'
 import Topbar from '../components/Topbar'
 import ProjectCard from '../components/ProjectCard'
-import useDebounce from '../hooks/useDebounce'
 import Footer from '../components/Footer'
 
 const Homepage = () => {
   const [users, setUsers] = React.useState<any>()
   const [repos, setRepos] = React.useState<any>()
   const [value, setValue] = React.useState('rizkyalviandra')
-  const [loading, setLoading] = React.useState(false)
   
   const fetchUser = async () => {
     await fetch(`https://api.github.com/search/users?q=${value}`)
@@ -27,10 +25,8 @@ const Homepage = () => {
   }
   
   React.useEffect(() => {
-    setLoading(true)
     fetchUser()
     fetchRepos()
-    setLoading(false)
   }, [])
 
   const handleSearch = () => {
@@ -38,10 +34,6 @@ const Homepage = () => {
     fetchUser()
     fetchRepos()
   }
-
-  // React.useEffect(() => {
-  //   console.log(repos)
-  // }, [repos])
   
   return (
     <>
@@ -53,7 +45,7 @@ const Homepage = () => {
       <SectionContainer paddingY="24" marginTop="16">
         <Grid
           justifyItems={{ base: "center", lg: "flex-start" }}
-          templateColumns={{ base: "1fr", lg: "1.5fr 2fr 1fr" }}
+          templateColumns={{ base: "1fr", lg: "0.8fr 2fr" }}
           textAlign={{ base: "center", lg: "left" }}
           gap="8"
         >
@@ -72,9 +64,7 @@ const Homepage = () => {
               Github Name:{" "}
               <Box
                 display="inline-block"
-                // backgroundColor="purple.600"
                 padding="2"
-                color="white"
               >
                 <Text>{users?.items[0].login}</Text>
               </Box>

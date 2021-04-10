@@ -1,9 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { Flex, Grid, GridItem, Heading } from '@chakra-ui/layout'
+import { Flex, Grid, GridItem, Heading, HStack } from '@chakra-ui/layout'
 import { Input, Text } from '@chakra-ui/react'
 import { Button, IconButton } from '@chakra-ui/button'
-import { Tooltip } from '@chakra-ui/tooltip'
 import { FaSun, FaMoon } from 'react-icons/fa'
 import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -44,25 +43,24 @@ const Topbar = ({ onInput, onClick }: Props) => {
           </a>
         </Link>
       </Grid>
-      <div>
-        <Input placeholder="Github username" onChange={onInput} width="300px"/>
-        <Button onClick={onClick}>Search</Button>
-      </div>
+      <HStack spacing="-1px">
+        <Input 
+        borderRadius="0px"
+          placeholder="Github username" 
+          onChange={onInput} 
+          width="300px"
+        />
+        <Button paddingTop="" borderRadius="0px" onClick={onClick}>Search</Button>
+      </HStack>
       <Grid templateColumns="repeat(2, 1fr)" gap="8" alignItems="center">
         <Button colorScheme="blue" onClick={() => logout()} variant="ghost">Logout</Button>
         <GridItem>
-          <Tooltip
-            label={
-              colorMode === "dark" ? "Active light mode" : "Active dark mode"
-            }
-          >
             <IconButton
               icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
               aria-label="colorMode"
               onClick={toggleColorMode}
               borderRadius="full"
             />
-          </Tooltip>
         </GridItem>
       </Grid>
     </Flex>
