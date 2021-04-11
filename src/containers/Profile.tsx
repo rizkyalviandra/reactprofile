@@ -1,11 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import { Divider, Flex, Grid, GridItem, Heading, Stack, Text } from '@chakra-ui/layout'
-import { Button, IconButton } from '@chakra-ui/button'
+import { Center, Divider, Flex, Grid, GridItem, Heading, Stack, Text } from '@chakra-ui/layout'
+import { IconButton } from '@chakra-ui/button'
 import { Tooltip } from '@chakra-ui/tooltip'
 import { FaSun, FaMoon } from 'react-icons/fa'
-import { useAuth0 } from '@auth0/auth0-react'
 import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode'
 import { FaEnvelope, FaLinkedin, FaGithub, FaDiscord, FaCode, FaCogs, FaMobileAlt } from 'react-icons/fa'
 import { Image } from '@chakra-ui/image'
@@ -202,7 +201,6 @@ const skills: SkillCardProps[] = [
 const Profile = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const menuBackgroundColor = useColorModeValue("white", "gray.900");
-  const { logout } = useAuth0()
   return (
     <>
       <Head>
@@ -230,7 +228,11 @@ const Profile = () => {
           </Link>
         </Grid>
         <Grid templateColumns="repeat(2, 1fr)" gap="8" alignItems="center">
-          <Button colorScheme="blue" onClick={() => logout()} variant="ghost">Logout</Button>
+          <Link href="/api/auth/logout">
+            <a>
+              <Heading size="md">Logout</Heading>
+            </a>
+          </Link>
           <GridItem>
             <Tooltip
               label={
@@ -274,6 +276,7 @@ const Profile = () => {
             </Text>
             <Divider marginY="4" />
             <GridItem>
+              <Center>
             <Stack direction="row">
               {SocialMedias.map((socialMedia) => (
                 <SocialMediaButton
@@ -283,6 +286,7 @@ const Profile = () => {
                 />
               ))}
             </Stack>
+            </Center>
           </GridItem>
           </Stack>
         </Grid>

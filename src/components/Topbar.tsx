@@ -5,7 +5,6 @@ import { Input, Text } from '@chakra-ui/react'
 import { Button, IconButton } from '@chakra-ui/button'
 import { FaSun, FaMoon } from 'react-icons/fa'
 import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode'
-import { useAuth0 } from '@auth0/auth0-react'
 
 interface Props {
   onInput: any,
@@ -15,7 +14,6 @@ interface Props {
 const Topbar = ({ onInput, onClick }: Props) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const menuBackgroundColor = useColorModeValue("white", "gray.900");
-  const { logout } = useAuth0()
 
   return (
     <Flex
@@ -43,7 +41,7 @@ const Topbar = ({ onInput, onClick }: Props) => {
           </a>
         </Link>
       </Grid>
-      <HStack spacing="-1px">
+      <HStack spacing="-1px" marginRight="10px">
         <Input 
         borderRadius="0px"
           placeholder="Github username" 
@@ -53,7 +51,11 @@ const Topbar = ({ onInput, onClick }: Props) => {
         <Button paddingTop="" borderRadius="0px" onClick={onClick}>Search</Button>
       </HStack>
       <Grid templateColumns="repeat(2, 1fr)" gap="8" alignItems="center">
-        <Button colorScheme="blue" onClick={() => logout()} variant="ghost">Logout</Button>
+        <Link href="/api/auth/logout">
+          <a>
+            <Heading size="md">Logout</Heading>
+          </a>
+        </Link>
         <GridItem>
             <IconButton
               icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}

@@ -1,41 +1,16 @@
 import React from 'react'
-import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { AppProps } from 'next/dist/next-server/lib/router/router';
-import { Center, ChakraProvider, Spinner } from "@chakra-ui/react"
+import { ChakraProvider, Spinner } from "@chakra-ui/react"
+import { UserProvider as Auth0Provider } from '@auth0/nextjs-auth0'
+import { UserProvider } from '../contexts/UserContext'
 
-const App = ({ Component, pageProps }: AppProps) => {
-  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
-
-  React.useEffect(() => {
-    if (!isLoading && !isAuthenticated) loginWithRedirect()
-  }, [isLoading, isAuthenticated, loginWithRedirect])
-
-  if (isLoading)
+const AppWithProvider = ({ Component, pageProps }: AppProps): React.ReactElement<AppProps> => {
   return (
-    <Center h="600px">
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
-    </Center>
-  )
-  if(isAuthenticated)  return <Component {...pageProps} />
-
-  return null
-}
-
-const AppWithProvider = (props: AppProps) => {
-  return (
-    <Auth0Provider
-      domain={`${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}`}
-      clientId={`${process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}`}
-      redirectUri={`${process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI}`}
-    >
+    <Auth0Provider>
       <ChakraProvider>
-        <App {...props}/>
+        <UserProvider>
+          <Component {...pageProps} />
+        </UserProvider>
       </ChakraProvider>
     </Auth0Provider>
   )
